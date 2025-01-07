@@ -3,12 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SriSaiSamrat.Interiors</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f3f7;
+            background-color: #f0f4f8;
             margin: 0;
             padding: 20px;
         }
@@ -16,8 +17,8 @@
         .invoice {
             background: #fff;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 900px;
             margin: auto;
         }
@@ -30,7 +31,7 @@
         }
 
         .invoice-header img {
-            max-height: 50px;
+            max-height: 150px;
         }
 
         .invoice-details-container {
@@ -50,42 +51,50 @@
         .details th,
         .details td {
             text-align: left;
-            padding: 5px 0;
+            padding: 8px 0;
+            font-size: 0.95rem;
         }
 
         .invoice-items table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
         .invoice-items th,
         .invoice-items td {
-            border: 1px solid #dedede;
-            padding: 8px;
+            border: #e0e0e0;
+            padding: 10px;
             text-align: center;
+            font-size: 0.9rem;
         }
 
         .invoice-items th {
-            background: #f5f7f9;
+            background: #e8f4fc;
+            color: #333;
+            font-weight: bold;
         }
 
         .invoice-footer {
             text-align: right;
             margin-top: 20px;
+            font-size: 1rem;
+            font-weight: bold;
         }
 
         .btn {
-            padding: 10px 15px;
-            background: #61dafb;
+            padding: 12px 18px;
+            background: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .btn:hover {
-            background: #5cc3e6;
+            background: #0056b3;
         }
 
         .add-item {
@@ -94,9 +103,81 @@
         }
 
         .add-item input {
-            padding: 8px;
+            padding: 10px;
             margin-right: 10px;
+            border: #007bff;
+            border-radius: 4px;
+            background-color: #f8fbff;
+            color: #333;
+            outline: none;
+            transition: 0.3s;
         }
+
+        .add-item input:focus {
+            border-color: #0056b3;
+            background-color: #eef6ff;
+        }
+
+        .totals-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .totals-container div {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .totals-container strong {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .delete-icon {
+            color: red;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .delete-icon:hover {
+            color: #b30000;
+        }
+
+        .details input {
+            width: 90%;
+            /* Reduce the width */
+            padding: 8px;
+            /* Reduce padding */
+            /* margin-top: 5px; */
+            /* margin-bottom: 8px; */
+            border: #ddd;
+            /* background-color: #f8fbff; */
+            border-radius: 4px;
+            /* Slightly smaller border radius */
+            font-size: 0.85rem;
+            /* Slightly smaller font size */
+            color: #333;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .details input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+            outline: none;
+        }
+
+        .details label {
+            font-size: 0.85rem;
+            /* Match label size with input */
+            color: #555;
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
 
         /* Responsive Design */
         @media screen and (max-width: 768px) {
@@ -132,17 +213,18 @@
 
             .invoice-items th,
             .invoice-items td {
-                padding: 6px;
+                padding: 8px;
+                font-size: 0.8rem;
             }
 
             .details th,
             .details td {
-                padding: 3px 0;
+                padding: 4px 0;
             }
 
             .btn {
                 padding: 10px;
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
         }
 
@@ -150,64 +232,107 @@
             .add-item {
                 display: none;
             }
-        }
 
-        @media print {
-
-            th:nth-child(6),
-            td:nth-child(6) {
+            th:nth-child(7),
+            td:nth-child(7) {
                 display: none;
             }
         }
 
-        @media screen and (max-width: 768px) {
-            .invoice-items table {
-                width: 100%;
-                font-size: 0.9rem;
-                border: none;
-            }
+        .invoice-items {
+            width: 100%;
+            margin: 0 auto;
+            overflow-x: auto;
+            /* Enable horizontal scrolling for small screens */
+        }
+
+        .invoice-items table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .invoice-items th,
+        .invoice-items td {
+            text-align: left;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            font-size: 12px;
+        }
+
+        .invoice-items thead {
+            background-color: #f4f4f4;
+        }
+
+        .invoice-items th {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .invoice-items tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Responsive design for small screen size 320x516 */
+        @media (max-width: 320px) {
 
             .invoice-items th,
             .invoice-items td {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+
+            .invoice-items table {
                 display: block;
-                text-align: left;
                 width: 100%;
-                padding: 8px 0;
+                overflow-x: auto;
+                white-space: nowrap;
             }
 
-            .invoice-items th {
-                background: #f5f7f9;
+            .invoice-items td {
+                font-size: 10px;
+            }
+
+            .invoice-items td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-weight: bold;
+                text-align: left;
+            }
+
+            .invoice-items td:last-child {
                 text-align: center;
-            }
-
-            .invoice-items tr {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                border-bottom: 1px solid #dedede;
-                margin-bottom: 10px;
             }
         }
 
-        @media screen and (max-width: 480px) {
-            .invoice-header img {
-                max-height: 40px;
+        /* Ensure that we have space for scrolling within small screen size */
+        @media (max-width: 516px) {
+            .invoice-items {
+                padding: 0 8px;
+            }
+
+            .invoice-items table {
+                min-width: 320px;
+            }
+
+            .invoice-items td {
+                font-size: 10px;
+                padding: 6px;
             }
 
             .invoice-items th,
             .invoice-items td {
-                padding: 6px;
-                font-size: 0.8rem;
+                padding: 4px 8px;
             }
+        }
 
-            .details th,
-            .details td {
-                padding: 3px 0;
-            }
-
-            .btn {
-                padding: 10px;
-                font-size: 0.8rem;
+        @media print {
+            .invoice-footer {
+                display: none;
             }
         }
     </style>
@@ -219,6 +344,7 @@
     <div class="invoice">
         <div class="invoice-header">
             <img src="logo.jpg" alt="Company Logo">
+            <h1>Invoice</h1>
             <div>
                 <p>Date: <span id="invoiceDate"></span></p>
                 <p>Invoice Number: <span id="invoiceNumber"></span></p>
@@ -230,19 +356,19 @@
                 <h3>Bill From</h3>
                 <table>
                     <tr>
-                        <th>Company Name:</th>
-                        <td>Your Company Name</td>
+                        <!-- <th>Company Name:</th> -->
+                        <td>Sri Sai Samrat Interiors</td>
                     </tr>
                     <tr>
-                        <th>Mobile:</th>
+                        <!-- <th>Mobile:</th> -->
                         <td>+91-1234567890</td>
                     </tr>
                     <tr>
-                        <th>Email:</th>
-                        <td>company@example.com</td>
+                        <!-- <th>Email:</th> -->
+                        <td>interiors@gmail.com</td>
                     </tr>
                     <tr>
-                        <th>Address:</th>
+                        <!-- <th>Address:</th> -->
                         <td>Your Company Address</td>
                     </tr>
                 </table>
@@ -252,19 +378,19 @@
                 <h3>Bill To</h3>
                 <table>
                     <tr>
-                        <th>Customer Name:</th>
+                        <!-- <th>Customer Name:</th> -->
                         <td><input type="text" id="customerName" placeholder="Enter customer name"></td>
                     </tr>
                     <tr>
-                        <th>Mobile:</th>
+                        <!-- <th>Mobile:</th> -->
                         <td><input type="text" id="customerMobile" placeholder="Enter mobile number"></td>
                     </tr>
                     <tr>
-                        <th>Email:</th>
+                        <!-- <th>Email:</th> -->
                         <td><input type="email" id="customerEmail" placeholder="Enter email"></td>
                     </tr>
                     <tr>
-                        <th>Address:</th>
+                        <!-- <th>Address:</th> -->
                         <td><input type="text" id="customerAddress" placeholder="Enter address"></td>
                     </tr>
                 </table>
@@ -273,10 +399,12 @@
 
         <div class="add-item">
             <input type="text" id="itemName" placeholder="Item Name">
+            <input type="text" id="itemDescription" placeholder="Description">
             <input type="number" id="itemQuantity" placeholder="Quantity">
             <input type="number" id="itemPrice" placeholder="Price">
             <button class="btn" onclick="addItem()">Add Item</button>
         </div>
+
 
         <div class="invoice-items">
             <table>
@@ -284,15 +412,17 @@
                     <tr>
                         <th>S.No</th>
                         <th>Item Name</th>
+                        <th>Description</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Amount</th>
                         <th>Action</th>
                     </tr>
                 </thead>
+
                 <tbody id="itemList">
                 </tbody>
-                <tfoot>
+                <!-- <tfoot>
                     <tr>
                         <td colspan="4"><strong>Sub Total</strong></td>
                         <td id="subTotal">₹0.00</td>
@@ -303,10 +433,15 @@
                         <td id="grandTotal">₹0.00</td>
                         <td></td>
                     </tr>
-                </tfoot>
+                </tfoot> -->
 
             </table>
         </div>
+        <div class="totals-container">
+            <div><strong>Sub Total: </strong><span id="subTotal">₹0.00</span></div>
+            <div><strong>Grand Total: </strong><span id="grandTotal">₹0.00</span></div>
+        </div>
+
 
         <div class="invoice-footer">
             <button class="btn" onclick="printInvoice()">Print Invoice</button>
@@ -320,23 +455,28 @@
 
     function addItem() {
         const itemName = document.getElementById('itemName').value;
+        const itemDescription = document.getElementById('itemDescription').value;
         const itemQuantity = parseInt(document.getElementById('itemQuantity').value);
         const itemPrice = parseFloat(document.getElementById('itemPrice').value);
 
         // Check if the input values are valid
-        if (itemName && !isNaN(itemQuantity) && itemQuantity > 0 && !isNaN(itemPrice) && itemPrice > 0) {
+        if (itemName && itemDescription && !isNaN(itemQuantity) && itemQuantity > 0 && !isNaN(itemPrice) && itemPrice > 0) {
             const amount = itemQuantity * itemPrice; // Calculate amount for the item
             subtotal += amount; // Update subtotal
 
             const itemRow = document.createElement('tr');
+            const deleteIconHTML = `<a href="#" class="delete-icon" onclick="removeItem(this, ${amount})">&#10006;</a>`;
+
             itemRow.innerHTML = `
-                <td>${itemCount}</td>
-                <td>${itemName}</td>
-                <td>${itemQuantity}</td>
-                <td>&#8377;${itemPrice.toFixed(2)}</td>
-                <td>&#8377;${amount.toFixed(2)}</td>
-                <td><button onclick="removeItem(this, ${amount})">Remove</button></td>
-            `;
+            <td>${itemCount}</td>
+            <td>${itemName}</td>
+            <td>${itemDescription}</td>
+            <td>${itemQuantity}</td>
+            <td>&#8377;${itemPrice.toFixed(2)}</td>
+            <td>&#8377;${amount.toFixed(2)}</td>
+            <td>${deleteIconHTML}</td>
+        `;
+
             document.getElementById('itemList').appendChild(itemRow);
 
             // Update the totals
@@ -349,6 +489,7 @@
 
         // Clear input fields after adding the item
         document.getElementById('itemName').value = '';
+        document.getElementById('itemDescription').value = '';
         document.getElementById('itemQuantity').value = '';
         document.getElementById('itemPrice').value = '';
     }
@@ -363,12 +504,12 @@
         // Update the totals after removal
         updateTotals();
     }
+
     function updateTotals() {
         // Update both subtotal and grand total with rupees symbol and 2 decimal precision
         document.getElementById('subTotal').textContent = `₹${subtotal.toFixed(2)}`;
         document.getElementById('grandTotal').textContent = `₹${subtotal.toFixed(2)}`;
     }
-
 
     function printInvoice() {
         const invoiceDate = new Date().toLocaleDateString();
@@ -382,6 +523,7 @@
         // Trigger the print dialog
         window.print();
     }
+
 </script>
 
 </html>
